@@ -30,6 +30,7 @@ namespace iCar_System
             AdminID = aid;
             AdminPassword = apw;
             Name = n;
+            authenticatedUsersList = new List<User>();
         }
 
     }
