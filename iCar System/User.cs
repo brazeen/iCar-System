@@ -39,7 +39,7 @@ namespace iCar_System
         //constructor
         public User() { }
 
-        public User(int uid, string n, string cn, DateTime dob, string ea, string ha, Admin aa)
+        public User(int uid, string n, string cn, DateTime dob, string ea, string ha)
         {
             UserID = uid;
             Name = n;
@@ -47,7 +47,8 @@ namespace iCar_System
             DateOfBirth = dob;
             EmailAddress = ea;
             HomeAddress = ha;
-            AuthenticatedAdmin = aa;
         }
+
+        public void setAdmin(Admin admin) { AuthenticatedAdmin = admin; }
     }
 }

@@ -35,15 +35,15 @@ namespace iCar_System
         //constructor
         public MaintenanceRecord() { }
 
-        public MaintenanceRecord(int rid, int cid, DateTime sd, string st, string sp, double c, Car mc)
+        public MaintenanceRecord(int rid, int cid, DateTime sd, string st, string sp, double c)
         {
             RecordID = rid;
-            CarID = cid;
             ServiceDate = sd;
             ServiceType = st;
             ServiceProvider = sp;
             Cost = c;
-            MaintainedCar = mc;
         }
+
+        public void setCar(Car car) { MaintainedCar = car; }
     }
 }

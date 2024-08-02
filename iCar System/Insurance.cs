@@ -31,13 +31,14 @@ namespace iCar_System
         //constructor
         public Insurance() { }
 
-        public Insurance(int ino, string c, DateTime ed, string cvg, Car ic)
+        public Insurance(int ino, string c, DateTime ed, string cvg)
         {
             InsuranceNo = ino;
             Company = c;
             ExpirationDate = ed;
             Coverage = cvg;
-            InsuredCar = ic;
         }
+
+        public void setCar(Car car) { InsuredCar = car; }
     }
 }
