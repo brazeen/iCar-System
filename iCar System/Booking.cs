@@ -36,6 +36,10 @@ namespace iCar_System
 
         public Car CarInBooking { get {  return carInBooking; } set {  carInBooking = value; } }
 
+        private Renter renterInBooking;
+
+        public Renter RenterInBooking { get { return renterInBooking; } set { renterInBooking = value; } }
+
         public Booking() { }
 
         public Booking(int bid, DateTime sd, DateTime ed, string pl, string rl, double tc)
@@ -51,5 +55,7 @@ namespace iCar_System
         public Car getCarInBooking() { return CarInBooking; }
 
         public void setCar(Car car) { CarInBooking = car; }
+
+        public void setRenter(Renter renter) { RenterInBooking = renter; }
     }
 }
