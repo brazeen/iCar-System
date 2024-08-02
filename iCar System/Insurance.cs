@@ -10,23 +10,23 @@ namespace iCar_System
     {
         private int insuranceNo; // should it be a string ah
 
-        public int InsuranceNo { get; set; }
+        public int InsuranceNo { get { return insuranceNo; } set { insuranceNo = value; } }
 
         private string company;
 
-        public string Company { get; set; }
+        public string Company { get { return company; } set { company = value; } }
 
         private DateTime expirationDate;
 
-        public DateTime ExpirationDate { get; set; }
+        public DateTime ExpirationDate { get { return expirationDate; } set { expirationDate = value; } }
 
         private string coverage;
 
-        public string Coverage { get; set; }
+        public string Coverage { get { return coverage; } set { coverage = value; } }
 
         private Car insuredCar;
 
-        public Car InsuredCar { get; set; }
+        public Car InsuredCar { get { return insuredCar; } set { insuredCar = value; } }
 
         //constructor
         public Insurance() { }

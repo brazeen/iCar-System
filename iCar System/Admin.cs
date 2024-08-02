@@ -10,15 +10,15 @@ namespace iCar_System
     {
         private int adminID;
 
-        public int AdminID { get; set; }
+        public int AdminID { get { return adminID; } set { adminID = value; } }
 
         private string adminPassword;
 
-        public string AdminPassword { get; set; }
+        public string AdminPassword { get { return adminPassword; } set { adminPassword = value; } }
 
         private string name;
 
-        public string Name { get; set; }
+        public string Name { get { return name; } set { name = value; } }
 
         private List<User> authenticatedUsersList;
 

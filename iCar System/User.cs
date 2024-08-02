@@ -10,31 +10,31 @@ namespace iCar_System
     {
         private int userID;
 
-        public int UserID { get; set; }
+        public int UserID { get { return userID; } set { userID = value; } }
 
         private string name;
 
-        public string Name { get; set; }
+        public string Name { get { return name; } set { name = value; } }
 
         private string contactNumber;
 
-        public string ContactNumber { get; set; }
+        public string ContactNumber { get { return contactNumber; } set { contactNumber = value; } }
 
         private DateTime dateOfBirth;
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get { return dateOfBirth; } set { dateOfBirth = value; } }
 
         private string emailAddress;
 
-        public string EmailAddress { get; set; }
+        public string EmailAddress { get { return emailAddress; } set { emailAddress = value; } }
 
         private string homeAddress;
 
-        public string HomeAddress { get; set; }
+        public string HomeAddress { get { return homeAddress; } set { homeAddress = value; } }
 
         private Admin authenticatedAdmin;
 
-        public Admin AuthenticatedAdmin { get; set; }
+        public Admin AuthenticatedAdmin { get { return authenticatedAdmin; } set { authenticatedAdmin = value; } }
 
         //constructor
         public User() { }

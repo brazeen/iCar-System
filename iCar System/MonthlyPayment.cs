@@ -10,23 +10,21 @@ namespace iCar_System
 	{
 		private int paymentID;
 
-		public int PaymentID { get; set; }
+		public int PaymentID { get { return paymentID; } set { paymentID = value; } }
 
-		//meow meow mmeow meow
+        private DateTime paymentDate;
 
-		private DateTime paymentDate;
+		public DateTime PaymentDate { get { return paymentDate; } set { paymentDate = value; } }
 
-		public DateTime PaymentDate { get; set; }
+        private double paymentAmount;
 
-		private double paymentAmount;
+		public double PaymentAmount { get { return paymentAmount; } set { paymentAmount = value; } }
 
-		public double PaymentAmount { get; set; }
+        private string paymentMethod;
 
-		private string paymentMethod;
+		public string PaymentMethod { get { return paymentMethod; } set { paymentMethod = value; } }
 
-		public string PaymentMethod { get; set; }
-
-		private List<Booking> bookingList;
+        private List<Booking> bookingList;
 
 		//constructor
 		public MonthlyPayment() { }
