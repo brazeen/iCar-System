@@ -22,6 +22,8 @@ namespace iCar_System
 
         private List<User> authenticatedUsersList;
 
+        public List<User> AuthenticatedUsersList { get { return authenticatedUsersList; } set { authenticatedUsersList = value; } }
+
         //constructor
         public Admin() { }
 
@@ -30,7 +32,7 @@ namespace iCar_System
             AdminID = aid;
             AdminPassword = apw;
             Name = n;
-            authenticatedUsersList = new List<User>();
+            AuthenticatedUsersList = new List<User>();
         }
 
     }

@@ -26,8 +26,10 @@ namespace iCar_System
 
         private List<Booking> bookingList;
 
-		//constructor
-		public MonthlyPayment() { }
+        public List<Booking> BookingList { get { return bookingList; } set { bookingList = value; } }
+
+        //constructor
+        public MonthlyPayment() { }
 
 		public MonthlyPayment(int pid, DateTime pd, double pa, string pm)
 		{
@@ -35,7 +37,7 @@ namespace iCar_System
 			PaymentDate = pd;
 			PaymentAmount = pa;
 			PaymentMethod = pm;
-			bookingList = new List<Booking>();
+			BookingList = new List<Booking>();
 		}
 	}
 }

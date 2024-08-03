@@ -15,7 +15,11 @@ namespace iCar_System
 
         private List<Booking> bookings;
 
+        public List<Booking> Bookings { get { return bookings; } set { bookings = value; } }
+
         private List<Review> reviews;
+
+        public List<Review> Reviews { get { return reviews; } set { reviews = value; } }
 
         private DriverLicense license;
 
@@ -26,8 +30,8 @@ namespace iCar_System
         public Renter(int uid, string n, string cn, DateTime dob, string ea, string ha) : base(uid, n, cn, dob, ea, ha) 
         {
             IsPrime = false; // by default false since you must spend money to become a prime renter
-            bookings = new List<Booking>();
-            reviews = new List<Review>();
+            Bookings = new List<Booking>();
+            Reviews = new List<Review>();
         }
 
         public bool hasReviewed(Car car)
