@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iCar_System
 {
-    public class Review
+    class Review
     {
         private int reviewID;
 

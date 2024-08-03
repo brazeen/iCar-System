@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iCar_System
 {
-    public class MaintenanceRecord
+    class MaintenanceRecord
     {
         private int recordID;
 

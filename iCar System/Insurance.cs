@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iCar_System
 {
-    public class Insurance
+    class Insurance
     {
         private int insuranceNo; // should it be a string ah
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iCar_System
 {
-	public class MonthlyPayment
+	class MonthlyPayment
 	{
 		private int paymentID;
 
