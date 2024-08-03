@@ -48,7 +48,7 @@ namespace iCar_System
 
         public void addReview(Review review)
         {
-            reviews.Add(review);
+            Reviews.Add(review);
         }
 
         public List<Booking> getBookingHistory()
@@ -56,7 +56,7 @@ namespace iCar_System
             List<Booking> bookingHistory = new List<Booking>();
             foreach (Booking booking in bookings)
             {
-                if (booking.EndDateandTime < DateTime.Now)
+                if (booking.EndDateAndTime < DateTime.Now)
                 {
                     bookingHistory.Add(booking);
                 }
