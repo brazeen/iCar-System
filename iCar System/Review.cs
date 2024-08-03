@@ -30,7 +30,7 @@ namespace iCar_System
 
         private Renter renterOfReview;
 
-        public int RenterOfReview { get { return renterOfReview; } set { renterOfReview = value; } }
+        public Renter RenterOfReview { get { return renterOfReview; } set { renterOfReview = value; } }
 
         public Review() { }
 
@@ -45,5 +45,7 @@ namespace iCar_System
         public void setCar(Car car) { BookedCar = car; }
 
         public void setRenter(Renter renter) { RenterOfReview = renter; }
+
+        public Car getCar() { return BookedCar; }
     }
 }
