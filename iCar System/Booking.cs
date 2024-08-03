@@ -12,13 +12,13 @@ namespace iCar_System
 
         public int BookingID { get { return bookingID; } set { bookingID = value; } }
 
-        private DateTime startDate;
+        private DateTime startDateandTime;
 
-        public DateTime StartDate { get { return startDate; } set { startDate = value; } }
+        public DateTime StartDateandTime { get { return startDateandTime; } set { startDateandTime = value; } }
 
-        private DateTime endDate;
+        private DateTime endDateandTime;
 
-        public DateTime EndDate { get { return endDate; } set { endDate = value; } }
+        public DateTime EndDateandTime { get { return endDateandTime; } set { endDateandTime = value; } }
 
         private string pickupLocation;
 
@@ -45,8 +45,8 @@ namespace iCar_System
         public Booking(int bid, DateTime sd, DateTime ed, string pl, string rl, double tc)
         {
             bookingID = bid;    
-            StartDate = sd;
-            EndDate = ed;
+            StartDateandTime = sd;
+            EndDateandTime = ed;
             PickupLocation = pl;
             ReturnLocation = rl;
             TotalCost = tc;
