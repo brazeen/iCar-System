@@ -28,9 +28,13 @@ namespace iCar_System
 
         public string ReturnLocation { get { return returnLocation; } set { returnLocation = value; } }
 
-        private double totalCost;
+        private double bookingFee;
 
-        public double TotalCost { get { return totalCost; } set { totalCost = value; } }
+        public double BookingFee { get { return bookingFee; } set { bookingFee = value; } }
+        
+        private double roadSideFee;
+
+        public double RoadSideFee { get { return roadSideFee; } set { roadSideFee = value; } }
 
         private Car carInBooking;
 
@@ -42,14 +46,15 @@ namespace iCar_System
 
         public Booking() { }
 
-        public Booking(int bid, DateTime sd, DateTime ed, string pl, string rl, double tc)
+        public Booking(int bid, DateTime sd, DateTime ed, string pl, string rl, double bf, double rf)
         {
             bookingID = bid;    
             StartDateAndTime = sd;
             EndDateAndTime = ed;
             PickupLocation = pl;
             ReturnLocation = rl;
-            TotalCost = tc;
+            BookingFee = bf;
+            RoadSideFee = rf;
         }
 
         public Car getCarInBooking() { return CarInBooking; }
