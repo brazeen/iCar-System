@@ -28,6 +28,7 @@ namespace iCar_System
 
         public List<Booking> BookingList { get { return bookingList; } set { bookingList = value; } }
 
+
         //constructor
         public MonthlyPayment() { }
 
@@ -39,5 +40,34 @@ namespace iCar_System
 			PaymentMethod = pm;
 			BookingList = new List<Booking>();
 		}
-	}
+
+        public double ApplyDiscount(double monthlyBookingFee, double monthlyRoadSideFee)
+        {
+            double discount = 0.10; // 10% discount
+            PaymentAmount = ((monthlyBookingFee/100)*90) + ((monthlyRoadSideFee / 100) * 50);
+			return PaymentAmount;
+        }
+
+        public bool ValidateCardCredentials(string cardNumber, DateTime expiryDate, int cvc)
+        {
+            if (cardNumber.Length != 16)
+            {
+                return false;
+            }
+
+
+            if (expiryDate < DateTime.Now)
+            {
+                return false;
+            }
+
+
+            if (cvc < 100 || cvc > 999)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
 }
