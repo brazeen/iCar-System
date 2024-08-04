@@ -37,9 +37,9 @@ namespace iCar_System
 
         public double Rate { get { return rate; } set { rate = value; } }
 
-        private List<DateTime> schedule;
+        private List<Dictionary<string, DateTime>> schedule;
 
-        public List<DateTime> Schedule { get { return schedule; } set { schedule = value; } }
+        public List<Dictionary<string,DateTime>> Schedule { get { return schedule; } set { schedule = value; } }
 
         private List<Review> reviews;
 
@@ -48,7 +48,7 @@ namespace iCar_System
         //constructor
         public Car() { }
 
-        public Car(int id, string mdl, int yr, int mil, List<string> ph, string mk, double rt, List<DateTime> sch)
+        public Car(int id, string mdl, int yr, int mil, List<string> ph, string mk, double rt, List<Dictionary<string,DateTime>> sch)
         {
             CarID = id;
             Model = mdl;
@@ -65,6 +65,14 @@ namespace iCar_System
         public void addReview(Review review)
         {
             Reviews.Add(review);
+        }
+
+        public void addUnavailabilityPeriod(DateTime start, DateTime end)
+        {
+            Dictionary<string, DateTime> unavailabilityPeriod = new Dictionary<string, DateTime>();
+            unavailabilityPeriod.Add("startDateAndTime", start);
+            unavailabilityPeriod.Add("endDateAndTime", end);
+            Schedule.Add(unavailabilityPeriod);
         }
     }
 }
