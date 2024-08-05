@@ -41,41 +41,58 @@ namespace iCar_System
 
         public Car CarInBooking { get {  return carInBooking; } set {  carInBooking = value; } }
 
+        private double carRate;
+
+        public double CarRate { get { return carRate; } set { carRate = value; } }
+
         private Renter renterInBooking;
 
         public Renter RenterInBooking { get { return renterInBooking; } set { renterInBooking = value; } }
 
         public Booking() { }
 
-        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, double bf, double rf)
+        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, double rf)
         {
             bookingId = bid;    
             StartDateAndTime = sd;
             EndDateAndTime = ed;
             PickUpDetails = pl;
-            BookingFee = bf;
             RoadSideFee = rf;
         }
 
         public Car getCarInBooking() { return CarInBooking; }
 
-        public void setCar(Car car) { CarInBooking = car; }
+        public void setCar(Car car) 
+        { 
+            CarInBooking = car;
+            CarRate = car.Rate;
+            bookingFee = calculateBookingFee();
+        }
 
         public void setRenter(Renter renter) { RenterInBooking = renter; }
 
+        //calculate the total booking fee
+        private double calculateBookingFee() {
+            return CarRate * (EndDateAndTime - StartDateAndTime).TotalHours;
+        }
         public void updateBooking(DateTime newStartDateAndTime, DateTime newEndDateAndTime, Tuple<string, string> newPickUpDetails)
         { 
             startDateAndTime = newStartDateAndTime;
             endDateAndTime = newEndDateAndTime;
             pickUpDetails = newPickUpDetails;
+            bookingFee = calculateBookingFee();
         }
         public Tuple<DateTime, DateTime> getBookingPeriod() { return new Tuple<DateTime, DateTime>(startDateAndTime, endDateAndTime); }
         public override string ToString(){
             return $"" +
                 $"Booking start: {StartDateAndTime.ToString("dd/MM/yy hh:mm tt")}" +
                 $"\nBooking end: {EndDateAndTime.ToString("dd/MM/yy hh:mm tt")}" +
+<<<<<<< HEAD
                 $"\nPick up details: {PickUpDetails}\nDrop off details: {DropOffDetails}" +
                 $"\nBooking fee: {BookingFee.ToString("F2")}" +
+=======
+                $"\nBooking fee: ${BookingFee.ToString("#.##")}" +
+>>>>>>> c8779b8d312a7517962ca8b42aae36e2649cd781
                 $"\nCar: {CarInBooking.Model}";
     }   }
 }

@@ -73,5 +73,10 @@ namespace iCar_System
 
             return true;
         }
+
+        public void UpdateAmount(double newAmount)
+        {
+            paymentAmount = newAmount;
+        }
     }
 }
