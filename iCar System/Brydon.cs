@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static iCar_System.Brydon;
 
 namespace iCar_System
 {
@@ -63,12 +64,14 @@ namespace iCar_System
             private Controller controller { get; set; }
             //"global variables"
             private Booking booking { get; set; }
+            private int bookingId { get; set; } //the booking id of the booking to modify
             private List<Booking> otherReservations { get; set; }
             private List<Dictionary<string, DateTime>> availabilitySchedule { get; set; }
             public UI() { }
-            public UI(Controller c) 
+            public UI(Controller c, int b) 
             {
                 controller = c;
+                bookingId = b;
             }
             //format datetime to a string in the format
             private static string formatDateTime(DateTime dateTimeObj)
@@ -85,7 +88,7 @@ namespace iCar_System
                     (DateTime start, DateTime end) = booking.getBookingPeriod();
                     Console.WriteLine($"{formatDateTime(start)} to {formatDateTime(end)}");
                 }
-                Console.WriteLine("\nCar's availability schedule:");
+                Console.WriteLine("\nCar's schedule:");
                 //display the car availability schedule
                 foreach (Dictionary<string, DateTime> period in availabilitySchedule)
                 {
@@ -109,17 +112,37 @@ namespace iCar_System
                 displayUnavailability(otherReservations, availabilitySchedule);
                 promptForReservation();
             }
-            public void setReservation(string startDate, string startTime, string endDate, string endTime, string pickUpDetails) {
-                //get the result of the reservation
-                string message = controller.setReservation(startDate, startTime, endDate, endTime, pickUpDetails, booking, otherReservations, availabilitySchedule);
-                displayMessage(message);
+
+            //UI 
+            public void run() {
+                //call modifyReservation in the UI
+                modifyReservation(bookingId);
+                //after prompting for reservation, get reservation info here
+                string message = "";
+                while (message != "Update successful")
+                {
+                    //get user input
+                    Console.Write("Start date (DD/MM/YY): ");
+                    string startDate = Console.ReadLine();
+                    Console.Write("Start time (HH:MM PM/AM): ");
+                    string startTime = Console.ReadLine();
+                    Console.Write("End date (DD/MM/YY): ");
+                    string endDate = Console.ReadLine();
+                    Console.Write("End time (HH:MM PM/AM): ");
+                    string endTime = Console.ReadLine();
+                    Console.Write("Pick up details (station/delivery zipcode): ");
+                    string pickUpDetails = Console.ReadLine();
+                    //get the result of the reservation
+                    message = controller.setReservation(startDate, startTime, endDate, endTime, pickUpDetails, booking, otherReservations, availabilitySchedule);
+                    displayMessage(message);
+                }
             }
         }
         public class Controller
         {
 
-        private List<Booking> bookingList { get; set; }
-        public Controller() { }
+            private List<Booking> bookingList { get; set; }
+            public Controller() { }
             //accept the data
             public Controller(List<Booking> bL) 
             { 
@@ -155,11 +178,18 @@ namespace iCar_System
             private static bool isCarAvailable(DateTime startTimeAndDate, DateTime endTimeAndDate, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule)
             {
                 Console.WriteLine(otherReservations);
+                //validate other reservations
                 foreach (Booking booking in otherReservations)
                 {
                     Tuple<DateTime, DateTime> bookingPeriod = booking.getBookingPeriod();
                     //check if they overlap
                     if (bookingPeriod.Item1 < endTimeAndDate && startTimeAndDate < bookingPeriod.Item2) return false;
+                }
+                //validate availability schedule
+                foreach (Dictionary<string, DateTime> unavailablePeriod in availabilitySchedule)
+                {
+                    //check if they overlap
+                    if (unavailablePeriod["startDateAndTime"] < endTimeAndDate && startTimeAndDate < unavailablePeriod["endDateAndTime"]) return false;
                 }
                 return true;
             }
@@ -213,8 +243,7 @@ namespace iCar_System
             Booking reservationToModify = testData[0];
             //create the UI and controller classes
             Controller controller = new Controller(testData);
-            UI ui = new UI(controller);
-
+            UI ui = new UI(controller, reservationToModify.BookingId);
             //this simulates the "track rental" page where users can choose to modify a reservation
             while (true)
             {
@@ -223,23 +252,8 @@ namespace iCar_System
                 string option = Console.ReadLine();
                 if (option == "1")
                 {
-                    //use case starts here
-                    //call modifyReservation in the UI
-                    ui.modifyReservation(reservationToModify.BookingId);
-                    //after prompting for reservation, get reservation info here
-                    //get user input
-                    Console.Write("Start date (DD/MM/YY): ");
-                    string startDate = Console.ReadLine();
-                    Console.Write("Start time (HH:MM PM/AM): ");
-                    string startTime = Console.ReadLine();
-                    Console.Write("End date (DD/MM/YY): ");
-                    string endDate = Console.ReadLine();
-                    Console.Write("End time (HH:MM PM/AM): ");
-                    string endTime = Console.ReadLine();
-                    Console.Write("Pick up details (station/delivery zipcode): ");
-                    string pickUpDetails = Console.ReadLine();
-                    //
-                    ui.setReservation(startDate, startTime, endDate, endTime, pickUpDetails);
+                    //run the use case
+                    ui.run();
           
                 }
                 else if (option == "0") 

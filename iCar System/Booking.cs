@@ -41,20 +41,24 @@ namespace iCar_System
 
         public Car CarInBooking { get {  return carInBooking; } set {  carInBooking = value; } }
 
+        private double carRate;
+
+        public double CarRate { get { return carRate; } set { carRate = value; } }
+
         private Renter renterInBooking;
 
         public Renter RenterInBooking { get { return renterInBooking; } set { renterInBooking = value; } }
 
         public Booking() { }
 
-        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, double bf, double rf)
+        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, double cr, double rf)
         {
             bookingId = bid;    
             StartDateAndTime = sd;
             EndDateAndTime = ed;
             PickUpDetails = pl;
-            BookingFee = bf;
             RoadSideFee = rf;
+            CarRate = cr;
         }
 
         public Car getCarInBooking() { return CarInBooking; }
@@ -63,6 +67,9 @@ namespace iCar_System
 
         public void setRenter(Renter renter) { RenterInBooking = renter; }
 
+        private double calculateBookingFee() {
+            return Rate * (endDate - startDate).TotalHours
+        }
         public void updateBooking(DateTime newStartDateAndTime, DateTime newEndDateAndTime, Tuple<string, string> newPickUpDetails)
         { 
             startDateAndTime = newStartDateAndTime;
