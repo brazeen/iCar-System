@@ -11,8 +11,7 @@ namespace iCar_System
 {
     class Brydon
     {
-        //main program loop
-        static void Main(string[] args)
+        static List<Booking> createData() 
         {
             //create data
             //target car
@@ -27,7 +26,6 @@ namespace iCar_System
                 new DateTime(2024, 10, 9, 10, 30, 45),
                 new DateTime(2024, 10, 14, 15, 12, 9),
                 new Tuple<string, string>("Deliver", "650534"),
-                new Tuple<string, string>("Deliver", "650534"),
                 10.5,
                 3
                 );
@@ -38,7 +36,6 @@ namespace iCar_System
                 new DateTime(2024, 9, 12, 15, 30, 0),
                 new DateTime(2024, 9, 18, 10, 12, 0),
                 new Tuple<string, string>("Deliver", "200808"),
-                new Tuple<string, string>("Deliver", "200808"),
                 12.5,
                 3
                 );
@@ -48,7 +45,6 @@ namespace iCar_System
                 new DateTime(2024, 10, 1, 19, 43, 0),
                 new DateTime(2024, 10, 8, 11, 12, 0),
                 new Tuple<string, string>("Deliver", "605012"),
-                new Tuple<string, string>("Deliver", "650534"),
                 12.5,
                 3
                 );
@@ -56,20 +52,83 @@ namespace iCar_System
             //add bookings to car
             targetCar.addBooking(reservationToModify);
             targetCar.addBooking(reservation1);
-            targetCar.addBooking( reservation2 );
-            //add to "database"
-            List<Booking> bookingList = new List<Booking>() { reservationToModify, reservation1, reservation2 };
+            targetCar.addBooking(reservation2);
+            //return "database"
+            return new List<Booking>() { reservationToModify, reservation1, reservation2 };
 
-            /*
-            ===========
-            Controller
-            ==========
-            */
+        }
 
+        public class UI
+        {
+            private Controller controller { get; set; }
+            //"global variables"
+            private Booking booking { get; set; }
+            private List<Booking> otherReservations { get; set; }
+            private List<Dictionary<string, DateTime>> availabilitySchedule { get; set; }
+            public UI() { }
+            public UI(Controller c) 
+            {
+                controller = c;
+            }
+            //format datetime to a string in the format
+            private static string formatDateTime(DateTime dateTimeObj)
+            {
+                return dateTimeObj.ToString("dd/MM/yy hh:mm tt");
+            }
+            private static void displayUnavailability(List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule)
+            {
+                Console.WriteLine("Times where the car is unavailable:\n");
+                //display the other bookings
+                Console.WriteLine("Other bookings:");
+                foreach (Booking booking in otherReservations)
+                {
+                    (DateTime start, DateTime end) = booking.getBookingPeriod();
+                    Console.WriteLine($"{formatDateTime(start)} to {formatDateTime(end)}");
+                }
+                Console.WriteLine("\nCar's availability schedule:");
+                //display the car availability schedule
+                foreach (Dictionary<string, DateTime> period in availabilitySchedule)
+                {
+                    Console.WriteLine($"{formatDateTime(period["startDateAndTime"])} to {formatDateTime(period["endDateAndTime"])}");
+                }
+            }
+            private void promptForReservation()
+            {
+                Console.WriteLine("\nEnter your new reservation details here:");
+                
+            }
+            private void displayMessage(string message)
+            {
+                Console.WriteLine($"{message}\n\n");
+            }
+
+            //functions that can be triggered by the user
+            public void modifyReservation(int bookingId)
+            {
+                (booking, otherReservations, availabilitySchedule) = controller.modifyReservation(bookingId);
+                displayUnavailability(otherReservations, availabilitySchedule);
+                promptForReservation();
+            }
+            public void setReservation(string startDate, string startTime, string endDate, string endTime, string pickUpDetails) {
+                //get the result of the reservation
+                string message = controller.setReservation(startDate, startTime, endDate, endTime, pickUpDetails, booking, otherReservations, availabilitySchedule);
+                displayMessage(message);
+            }
+        }
+        public class Controller
+        {
+
+        private List<Booking> bookingList { get; set; }
+        public Controller() { }
+            //accept the data
+            public Controller(List<Booking> bL) 
+            { 
+                bookingList = bL;
+            }
             //utility functions (self call)
             //accept a target booking id and a list of bookings
             //remove the booking that matches the target id
-            static List<Booking> excludeReservation(int bookingId, List<Booking> bookings)
+            private static List<Booking> excludeReservation(int bookingId, List<Booking> bookings)
             {
                 foreach (Booking booking in bookings)
                 {
@@ -83,21 +142,41 @@ namespace iCar_System
             }
 
             //convert a date string and time string to a date time obj and return it
-            static DateTime toDateTime(string date, string time) 
+            private static DateTime toDateTime(string date, string time)
             {
                 return DateTime.ParseExact($"{date} {time}", "dd/MM/yy h:mm tt", CultureInfo.InvariantCulture);
+            }
+            //validate that the end time is ahead of the start time
+            private static bool validateEndTime(DateTime end, DateTime start)
+            {
+                return DateTime.Compare(start, end) >= 0;
+            }
+            //check if the car's timing overlaps with availability schedule or bookings
+            private static bool isCarAvailable(DateTime startTimeAndDate, DateTime endTimeAndDate, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule)
+            {
+                Console.WriteLine(otherReservations);
+                foreach (Booking booking in otherReservations)
+                {
+                    Tuple<DateTime, DateTime> bookingPeriod = booking.getBookingPeriod();
+                    //check if they overlap
+                    if (bookingPeriod.Item1 < endTimeAndDate && startTimeAndDate < bookingPeriod.Item2) return false;
+                }
+                return true;
             }
 
             //iterate through all bookings and find the one that matches the target param
             //else return null (would never be triggered in the context of this use case)
-            Booking GetBooking(int bookingId)
+            private Booking GetBooking(int bookingId)
             {
                 foreach (var booking in bookingList) if (booking.BookingId == bookingId) return booking;
                 return null;
             }
+
+            //functions that can be accessed by other classes
+
             //return the availability schedule
             //returns a tuple for the target booking obj, existing reservations and car's availibility schedule
-            Tuple<Booking, List<Booking>, List<Dictionary<string, DateTime>>> modifyReservation(int bookingId)
+            public Tuple<Booking, List<Booking>, List<Dictionary<string, DateTime>>> modifyReservation(int bookingId)
             {
 
                 Booking booking = GetBooking(bookingId);
@@ -106,48 +185,33 @@ namespace iCar_System
                 List<Booking> listOfReservations = car.getReservations();
                 List<Booking> otherReservations = excludeReservation(bookingId, listOfReservations);
                 //also get the availability schedule
-                List<Dictionary<string, DateTime>> availabilitySchedule = car.getAvailabilitySchedule();    
+                List<Dictionary<string, DateTime>> availabilitySchedule = car.getAvailabilitySchedule();
                 return new Tuple<Booking, List<Booking>, List<Dictionary<string, DateTime>>>(booking, otherReservations, availabilitySchedule);
             }
 
-            string setReservation(string startDate, string startTime, string endDate, string endTime, string pickUpDetails, string dropOffDetails, Booking booking, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule)
+            public string setReservation(string startDate, string startTime, string endDate, string endTime, string dropOffDetails, Booking booking, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule)
             {
                 DateTime startDateAndTime = toDateTime(startDate, startTime);
+                DateTime endDateAndTime = toDateTime(endDate, endTime);
+                bool validEnd = validateEndTime(startDateAndTime, endDateAndTime);
+                if (!validEnd) return "The end time must be ahead of the start time";
+                bool isAvailable = isCarAvailable(startDateAndTime, endDateAndTime, otherReservations, availabilitySchedule);
+                if (!isAvailable) return "The";
                 Console.WriteLine(startDateAndTime);
                 return "";
             }
-            /*
-            ===========
-             UI
-            ==========
-             */
-            //format datetime to a string in the format
-            String formatDateTime(DateTime dateTimeObj) 
-            {
-                return dateTimeObj.ToString("dd/MM/yy hh:mm tt");
-            }
-            void displayUnavailability(List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule) 
-            {
-                Console.WriteLine("Times where the car is unavailable:\n");
-                //display the other bookings
-                Console.WriteLine("Other bookings:");
-                foreach (Booking booking in otherReservations) 
-                { 
-                    (DateTime start, DateTime end) = booking.getBookingPeriod();
-                    Console.WriteLine($"{formatDateTime(start)} to {formatDateTime(end)}");
-                }
-                Console.WriteLine("\nCar's availability schedule:");
-                //display the car availability schedule
-                foreach (Dictionary<string, DateTime> period in availabilitySchedule) {
-                    Console.WriteLine($"{formatDateTime(period["startDateAndTime"])} to {formatDateTime(period["endDateAndTime"])}");
-                }
-            }
+        }
+        //main program loop
+        static void Main(string[] args)
+        {
+            //get the test data
+            List<Booking> testData = createData();
+            Booking reservationToModify = testData[0];
+            //create the UI and controller classes
+            Controller controller = new Controller(testData);
+            UI ui = new UI(controller);
 
-            void promptForReservation()
-            {
-                Console.WriteLine("\nEnter your new reservation details here:");
-            }
-            //use case start 
+            //this simulates the "track rental" page where users can choose to modify a reservation
             while (true)
             {
                 //display reservation and prompt user to enter a option
@@ -155,10 +219,10 @@ namespace iCar_System
                 string option = Console.ReadLine();
                 if (option == "1")
                 {
-                    //call modifyReservation and get the unavailability schedule
-                    (Booking booking, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule) = modifyReservation(reservationToModify.BookingId);
-                    displayUnavailability(otherReservations, availabilitySchedule);
-                    promptForReservation();
+                    //use case starts here
+                    //call modifyReservation in the UI
+                    ui.modifyReservation(reservationToModify.BookingId);
+                    //after prompting for reservation, get reservation info here
                     //get user input
                     Console.Write("Start date (DD/MM/YY): ");
                     string startDate = Console.ReadLine();
@@ -170,10 +234,9 @@ namespace iCar_System
                     string endTime = Console.ReadLine();
                     Console.Write("Pick up details (station/delivery zipcode): ");
                     string pickUpDetails = Console.ReadLine();
-                    Console.Write("Drop off details (station/delivery zipcode): ");
-                    string dropOffDetails = Console.ReadLine();
-                    //get the result of the reservation
-                    string message = setReservation(startDate, startTime, endDate, endTime, pickUpDetails, dropOffDetails, booking, otherReservations, availabilitySchedule);
+                    //
+                    ui.setReservation(startDate, startTime, endDate, endTime, pickUpDetails);
+          
                 }
                 else if (option == "0") 
                 {

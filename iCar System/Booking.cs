@@ -47,13 +47,12 @@ namespace iCar_System
 
         public Booking() { }
 
-        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, Tuple<string, string> rl, double bf, double rf)
+        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, double bf, double rf)
         {
             bookingId = bid;    
             StartDateAndTime = sd;
             EndDateAndTime = ed;
             PickUpDetails = pl;
-            DropOffDetails = rl;
             BookingFee = bf;
             RoadSideFee = rf;
         }
