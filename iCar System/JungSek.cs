@@ -30,7 +30,7 @@ namespace iCar_System
         static void Main(string[] args)
         {
             // Test Data
-            Renter loggedInRenter = new Renter(false, 1, "Jung Sek", "94473979", new DateTime(2006, 4, 17), "jung@gmail.com", "1 Serangoon Road"); ;
+            Renter loggedInRenter = new Renter(false,1, "Jung Sek", "94473979", new DateTime(2006, 4, 17), "jung@gmail.com", "1 Serangoon Road");
 
             List<string> photos1 = new List<string>
             {
@@ -110,7 +110,7 @@ namespace iCar_System
                 return;
             }
 
-            Booking newBooking = new Booking(3, startDate, endDate, new Tuple<string, string>(pickupMethod, pickupLocation), new Tuple<string, string>(dropoffMethod, dropoffLocation), selectedCar.Rate * (endDate - startDate).TotalHours, 0)
+            Booking newBooking = new Booking(3, startDate, endDate, new Tuple<string, string>(pickupMethod, pickupLocation), selectedCar.Rate * (endDate - startDate).TotalHours, 0)
             {
                 CarInBooking = selectedCar,
                 RenterInBooking = loggedInRenter
