@@ -103,6 +103,13 @@ namespace iCar_System
                     return false;
                 }
             }
+            foreach (var period in Schedule)
+            {
+                if ((startDate < period["endDateAndTime"]) && (endDate > period["startDateAndTime"]))
+                {
+                    return false;
+                }
+            }
             return true;
         }
     }
