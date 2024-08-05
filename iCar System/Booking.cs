@@ -51,30 +51,36 @@ namespace iCar_System
 
         public Booking() { }
 
-        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, double cr, double rf)
+        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, double rf)
         {
             bookingId = bid;    
             StartDateAndTime = sd;
             EndDateAndTime = ed;
             PickUpDetails = pl;
             RoadSideFee = rf;
-            CarRate = cr;
         }
 
         public Car getCarInBooking() { return CarInBooking; }
 
-        public void setCar(Car car) { CarInBooking = car; }
+        public void setCar(Car car) 
+        { 
+            CarInBooking = car;
+            CarRate = car.Rate;
+            bookingFee = calculateBookingFee();
+        }
 
         public void setRenter(Renter renter) { RenterInBooking = renter; }
 
+        //calculate the total booking fee
         private double calculateBookingFee() {
-            return Rate * (endDate - startDate).TotalHours
+            return CarRate * (StartDateAndTime - EndDateAndTime).TotalHours;
         }
         public void updateBooking(DateTime newStartDateAndTime, DateTime newEndDateAndTime, Tuple<string, string> newPickUpDetails)
         { 
             startDateAndTime = newStartDateAndTime;
             endDateAndTime = newEndDateAndTime;
             pickUpDetails = newPickUpDetails;
+            bookingFee = calculateBookingFee();
         }
         public Tuple<DateTime, DateTime> getBookingPeriod() { return new Tuple<DateTime, DateTime>(startDateAndTime, endDateAndTime); }
         public override string ToString(){
