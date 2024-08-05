@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,9 +64,13 @@ namespace iCar_System
 
         public void setRenter(Renter renter) { RenterInBooking = renter; }
 
-        public override string ToString()
-        {
-            return $"Booking start: {StartDateAndTime}\nBooking end: {EndDateAndTime}\nPick up location: {PickUpDetails}\nDrop off location {DropOffDetails}\nBooking fee: {BookingFee}\n Car: {CarInBooking.Model}";
-        }
-    }
+        public Tuple<DateTime, DateTime> getBookingPeriod() { return new Tuple<DateTime, DateTime>(startDateAndTime, endDateAndTime); }
+        public override string ToString(){
+            return $"" +
+                $"Booking start: {StartDateAndTime.ToString("dd/MM/yy hh:mm tt")}" +
+                $"\nBooking end: {EndDateAndTime.ToString("dd/MM/yy hh:mm tt")}" +
+                $"\nPick up details: {PickUpDetails}\nDrop off details: {DropOffDetails}" +
+                $"\nBooking fee: {BookingFee}" +
+                $"\nCar: {CarInBooking.Model}";
+    }   }
 }
