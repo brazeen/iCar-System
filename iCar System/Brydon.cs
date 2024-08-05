@@ -159,6 +159,7 @@ namespace iCar_System
                     (Booking booking, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule) = modifyReservation(reservationToModify.BookingId);
                     displayUnavailability(otherReservations, availabilitySchedule);
                     promptForReservation();
+                    //get user input
                     Console.Write("Start date (DD/MM/YY): ");
                     string startDate = Console.ReadLine();
                     Console.Write("Start time (HH:MM PM/AM): ");
@@ -171,6 +172,7 @@ namespace iCar_System
                     string pickUpDetails = Console.ReadLine();
                     Console.Write("Drop off details (station/delivery zipcode): ");
                     string dropOffDetails = Console.ReadLine();
+                    //get the result of the reservation
                     string message = setReservation(startDate, startTime, endDate, endTime, pickUpDetails, dropOffDetails, booking, otherReservations, availabilitySchedule);
                 }
                 else if (option == "0") 

@@ -88,5 +88,10 @@ namespace iCar_System
         {
             return Reservations;
         }
+
+        public void getAvailabilitySchedule()
+        { 
+            return Schedule;
+        }
     }
 }
