@@ -73,7 +73,7 @@ namespace iCar_System
 
         //calculate the total booking fee
         private double calculateBookingFee() {
-            return CarRate * (StartDateAndTime - EndDateAndTime).TotalHours;
+            return CarRate * (EndDateAndTime - StartDateAndTime).TotalHours;
         }
         public void updateBooking(DateTime newStartDateAndTime, DateTime newEndDateAndTime, Tuple<string, string> newPickUpDetails)
         { 
