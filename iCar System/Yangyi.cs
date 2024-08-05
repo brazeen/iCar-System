@@ -16,14 +16,14 @@ namespace iCar_System
             Renter primeRenter = new Renter(true, 2, "Donovan", "92778840", new DateTime(2001, 12, 21), "donovan@gmail.com", "1 Clementi Road");
 
             Booking regBooking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0),
-                new Tuple<string, string>("Deliver", "239085"), 199.99, 100);
+                new Tuple<string, string>("Deliver", "239085"), 100);
             Booking regBooking2 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0),
-                new Tuple<string, string>("Deliver", "239085"), 199.99, 100);
+                new Tuple<string, string>("Deliver", "239085"), 100);
 
             Booking primeBooking1 = new Booking(2, new DateTime(2024, 4, 1, 10, 0, 0), new DateTime(2024, 5, 5, 15, 0, 0),
-                new Tuple<string, string>("Deliver", "665432"), 100.99, 99);
+                new Tuple<string, string>("Deliver", "665432"), 99);
             Booking primeBooking2 = new Booking(2, new DateTime(2024, 4, 1, 10, 0, 0), new DateTime(2024, 5, 5, 15, 0, 0),
-                new Tuple<string, string>("Deliver", "665432"), 100.99, 99);
+                new Tuple<string, string>("Deliver", "665432"), 99);
 
             primeBookingList.Add(primeBooking1);
             primeBookingList.Add(primeBooking2);
@@ -136,14 +136,15 @@ namespace iCar_System
                             valid = promptForCard(monthlyPayment);
                         }
                         double discountedAmount = monthlyPayment.ApplyDiscount(totalBookingFee, totalRoadSideFee);
+                        monthlyPayment.UpdateAmount(discountedAmount);
                         Console.WriteLine("Total Payment exceeds the minimum requirement (300 dollars).");
                         Console.WriteLine("Discount applied.");
-                        Console.WriteLine($"Total payment after dicount: ${discountedAmount:F2}");
+                        Console.WriteLine($"Total payment after discount: ${monthlyPayment.PaymentAmount:F2}");
                         Console.WriteLine("Confirm payment? [Y/N]");
                         string confirm = Console.ReadLine();
                         if (confirm == "Y")
                         {
-                            Console.WriteLine($"${discountedAmount:F2} successfully deducted from {monthlyPayment.PaymentMethod}");
+                            Console.WriteLine($"${monthlyPayment.PaymentAmount:F2} successfully deducted from {monthlyPayment.PaymentMethod}");
                         }
                     }
                 }
@@ -162,7 +163,7 @@ namespace iCar_System
                     Console.WriteLine($"Total Payment: ${totalPayment:F2}");
                     Console.WriteLine();
                     string paymentMethod = promptForPaymentMethod();
-                    MonthlyPayment monthlyPayment = new MonthlyPayment(1, DateTime.Now, 0, paymentMethod);
+                    MonthlyPayment monthlyPayment = new MonthlyPayment(1, DateTime.Now, totalPayment, paymentMethod);
                     bool valid = promptForCard(monthlyPayment);
                     while (valid == false)
                     {
@@ -174,7 +175,7 @@ namespace iCar_System
                     string confirm = Console.ReadLine();
                     if (confirm == "Y")
                     {
-                        Console.WriteLine($"${totalPayment:F2} successfully deducted from {monthlyPayment.PaymentMethod}");
+                        Console.WriteLine($"${monthlyPayment.PaymentAmount:F2} successfully deducted from {monthlyPayment.PaymentMethod}");
                     }
                 }
             }
