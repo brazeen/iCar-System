@@ -93,5 +93,17 @@ namespace iCar_System
         { 
             return Schedule;
         }
+
+        public bool IsAvailable(DateTime startDate, DateTime endDate)
+        {
+            foreach (var booking in Reservations)
+            {
+                if ((startDate < booking.EndDateAndTime) && (endDate > booking.StartDateAndTime))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
