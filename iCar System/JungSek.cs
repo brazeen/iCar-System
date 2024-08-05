@@ -110,11 +110,9 @@ namespace iCar_System
                 return;
             }
 
-            Booking newBooking = new Booking(3, startDate, endDate, new Tuple<string, string>(pickupMethod, pickupLocation), selectedCar.Rate * (endDate - startDate).TotalHours, 0)
-            {
-                CarInBooking = selectedCar,
-                RenterInBooking = loggedInRenter
-            };
+            Booking newBooking = new Booking(3, startDate, endDate, new Tuple<string, string>(pickupMethod, pickupLocation), 0);
+            newBooking.setCar(selectedCar);
+            newBooking.setRenter(loggedInRenter);
 
             loggedInRenter.Bookings.Add(newBooking);
             selectedCar.addBooking(newBooking);
