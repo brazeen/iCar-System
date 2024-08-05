@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,18 @@ namespace iCar_System
 			PaymentMethod = pm;
 			BookingList = new List<Booking>();
 		}
+
+        public bool CheckForPrime(List<Booking> bookings)
+        {
+            foreach (Booking booking in bookings)
+            {
+                if (!booking.RenterInBooking.IsPrime)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         public double ApplyDiscount(double monthlyBookingFee, double monthlyRoadSideFee)
         {
