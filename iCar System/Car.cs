@@ -37,9 +37,9 @@ namespace iCar_System
 
         public double Rate { get { return rate; } set { rate = value; } }
 
-        private List<DateTime> schedule;
+        private List<Booking> schedule;
 
-        public List<DateTime> Schedule { get { return schedule; } set { schedule = value; } }
+        public List<Booking> Schedule { get { return schedule; } set { schedule = value; } }
 
         private List<Review> reviews;
 
@@ -48,7 +48,7 @@ namespace iCar_System
         //constructor
         public Car() { }
 
-        public Car(int id, string mdl, int yr, int mil, List<string> ph, string mk, double rt, List<DateTime> sch)
+        public Car(int id, string mdl, int yr, int mil, List<string> ph, string mk, double rt, List<Booking> sch)
         {
             CarID = id;
             Model = mdl;
@@ -65,6 +65,18 @@ namespace iCar_System
         public void addReview(Review review)
         {
             Reviews.Add(review);
+        }
+
+        public bool IsAvailable(DateTime startDate, DateTime endDate)
+        {
+            foreach (var booking in Schedule)
+            {
+                if ((startDate < booking.EndDateAndTime) && (endDate > booking.StartDateAndTime))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
