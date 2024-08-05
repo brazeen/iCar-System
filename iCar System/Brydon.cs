@@ -199,7 +199,9 @@ namespace iCar_System
                 bool isAvailable = isCarAvailable(startDateAndTime, endDateAndTime, otherReservations, availabilitySchedule);
                 if (!isAvailable) return "The car is not available at this time";
                 //success, update booking
-                booking.updateBooking(startDateAndTime, endDateAndTime, pickUpDetails)
+                string[] splitArray = pickUpDetails.Split(' ');
+                Tuple<string, string> pickUpDetailsFormatted = new Tuple<string, string>(splitArray[0], splitArray[1]);
+                booking.updateBooking(startDateAndTime, endDateAndTime, pickUpDetailsFormatted);
                 return "Update successful";
             }
         }

@@ -63,6 +63,12 @@ namespace iCar_System
 
         public void setRenter(Renter renter) { RenterInBooking = renter; }
 
+        public void updateBooking(DateTime newStartDateAndTime, DateTime newEndDateAndTime, Tuple<string, string> newPickUpDetails)
+        { 
+            startDateAndTime = newStartDateAndTime;
+            endDateAndTime = newEndDateAndTime;
+            pickUpDetails = newPickUpDetails;
+        }
         public Tuple<DateTime, DateTime> getBookingPeriod() { return new Tuple<DateTime, DateTime>(startDateAndTime, endDateAndTime); }
         public override string ToString(){
             return $"" +
