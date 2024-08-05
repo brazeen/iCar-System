@@ -37,9 +37,9 @@ namespace iCar_System
             regBookingList.Add(regBooking2);
 
             //method to makePayment object
-            MonthlyPayment makePayment(string paymentMethod)
+            MonthlyPayment makePayment(string paymentMethod, double totalPayment)
             {
-                MonthlyPayment payment = new MonthlyPayment(1, DateTime.Now, 0, paymentMethod);
+                MonthlyPayment payment = new MonthlyPayment(1, DateTime.Now, totalPayment, paymentMethod);
                 return payment;
             }
 
@@ -171,7 +171,7 @@ namespace iCar_System
                     if (totalPayment > 300)
                     {
                         string paymentMethod = promptForPaymentMethod();
-                        MonthlyPayment monthlyPayment = makePayment(paymentMethod);
+                        MonthlyPayment monthlyPayment = makePayment(paymentMethod, totalPayment);
                         bool valid = promptForCard(monthlyPayment);
                         while (valid == false)
                         {
@@ -205,7 +205,7 @@ namespace iCar_System
 
                     displayPayment(totalPayment, totalBookingFee, totalRoadSideFee);
                     string paymentMethod = promptForPaymentMethod();
-                    MonthlyPayment monthlyPayment = makePayment(paymentMethod);
+                    MonthlyPayment monthlyPayment = makePayment(paymentMethod, totalPayment);
                     monthlyPayment.UpdateAmount(totalPayment);
                     bool valid = promptForCard(monthlyPayment);
                     while (valid == false)
