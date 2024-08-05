@@ -27,6 +27,14 @@ namespace iCar_System
             TimeSpan lateDuration = currentTime - booking1.EndDateAndTime;
             double minutesDiff = lateDuration.TotalMinutes;
 
+            void displayReturnLocations()
+            {
+                Console.WriteLine("Where do you want to return your car?\n" +
+                    "[1] iCar Station\n" +
+                    "[2] Desired Location");
+                int option = Convert.ToInt32(Console.ReadLine());
+            }
+
             void returnMenu()
             {
                 while (true)
