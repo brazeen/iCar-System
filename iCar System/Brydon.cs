@@ -189,16 +189,18 @@ namespace iCar_System
                 return new Tuple<Booking, List<Booking>, List<Dictionary<string, DateTime>>>(booking, otherReservations, availabilitySchedule);
             }
 
-            public string setReservation(string startDate, string startTime, string endDate, string endTime, string dropOffDetails, Booking booking, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule)
+            public string setReservation(string startDate, string startTime, string endDate, string endTime, string pickUpDetails, Booking booking, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule)
             {
                 DateTime startDateAndTime = toDateTime(startDate, startTime);
                 DateTime endDateAndTime = toDateTime(endDate, endTime);
+                //verify the data
                 bool validEnd = validateEndTime(startDateAndTime, endDateAndTime);
                 if (!validEnd) return "The end time must be ahead of the start time";
                 bool isAvailable = isCarAvailable(startDateAndTime, endDateAndTime, otherReservations, availabilitySchedule);
-                if (!isAvailable) return "The";
-                Console.WriteLine(startDateAndTime);
-                return "";
+                if (!isAvailable) return "The car is not available at this time";
+                //success, update booking
+                booking.updateBooking(startDateAndTime, endDateAndTime, pickUpDetails)
+                return "Update successful";
             }
         }
         //main program loop
