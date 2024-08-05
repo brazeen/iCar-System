@@ -16,14 +16,14 @@ namespace iCar_System
             Renter primeRenter = new Renter(true, 2, "Donovan", "92778840", new DateTime(2001, 12, 21), "donovan@gmail.com", "1 Clementi Road");
 
             Booking regBooking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0),
-                new Tuple<string, string>("Deliver", "239085"), new Tuple<string, string>("Deliver", "345676"), 199.99, 100);
+                new Tuple<string, string>("Deliver", "239085"), 199.99, 100);
             Booking regBooking2 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0),
-                new Tuple<string, string>("Deliver", "239085"), new Tuple<string, string>("Deliver", "345676"), 199.99, 100);
+                new Tuple<string, string>("Deliver", "239085"), 199.99, 100);
 
             Booking primeBooking1 = new Booking(2, new DateTime(2024, 4, 1, 10, 0, 0), new DateTime(2024, 5, 5, 15, 0, 0),
-                new Tuple<string, string>("Deliver", "665432"), new Tuple<string, string>("Deliver", "170645"), 100.99, 99);
+                new Tuple<string, string>("Deliver", "665432"), 100.99, 99);
             Booking primeBooking2 = new Booking(2, new DateTime(2024, 4, 1, 10, 0, 0), new DateTime(2024, 5, 5, 15, 0, 0),
-                new Tuple<string, string>("Deliver", "665432"), new Tuple<string, string>("Deliver", "170645"), 100.99, 99);
+                new Tuple<string, string>("Deliver", "665432"), 100.99, 99);
 
             primeBookingList.Add(primeBooking1);
             primeBookingList.Add(primeBooking2);
