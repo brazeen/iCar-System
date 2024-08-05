@@ -136,14 +136,15 @@ namespace iCar_System
                             valid = promptForCard(monthlyPayment);
                         }
                         double discountedAmount = monthlyPayment.ApplyDiscount(totalBookingFee, totalRoadSideFee);
+                        monthlyPayment.UpdateAmount(discountedAmount);
                         Console.WriteLine("Total Payment exceeds the minimum requirement (300 dollars).");
                         Console.WriteLine("Discount applied.");
-                        Console.WriteLine($"Total payment after dicount: ${discountedAmount:F2}");
+                        Console.WriteLine($"Total payment after discount: ${monthlyPayment.PaymentAmount:F2}");
                         Console.WriteLine("Confirm payment? [Y/N]");
                         string confirm = Console.ReadLine();
                         if (confirm == "Y")
                         {
-                            Console.WriteLine($"${discountedAmount:F2} successfully deducted from {monthlyPayment.PaymentMethod}");
+                            Console.WriteLine($"${monthlyPayment.PaymentAmount:F2} successfully deducted from {monthlyPayment.PaymentMethod}");
                         }
                     }
                 }
@@ -162,7 +163,7 @@ namespace iCar_System
                     Console.WriteLine($"Total Payment: ${totalPayment:F2}");
                     Console.WriteLine();
                     string paymentMethod = promptForPaymentMethod();
-                    MonthlyPayment monthlyPayment = new MonthlyPayment(1, DateTime.Now, 0, paymentMethod);
+                    MonthlyPayment monthlyPayment = new MonthlyPayment(1, DateTime.Now, totalPayment, paymentMethod);
                     bool valid = promptForCard(monthlyPayment);
                     while (valid == false)
                     {
@@ -174,7 +175,7 @@ namespace iCar_System
                     string confirm = Console.ReadLine();
                     if (confirm == "Y")
                     {
-                        Console.WriteLine($"${totalPayment:F2} successfully deducted from {monthlyPayment.PaymentMethod}");
+                        Console.WriteLine($"${monthlyPayment.PaymentAmount:F2} successfully deducted from {monthlyPayment.PaymentMethod}");
                     }
                 }
             }
