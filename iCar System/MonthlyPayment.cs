@@ -42,18 +42,6 @@ namespace iCar_System
 			BookingList = new List<Booking>();
 		}
 
-        public bool CheckForPrime(List<Booking> bookings)
-        {
-            foreach (Booking booking in bookings)
-            {
-                if (!booking.RenterInBooking.IsPrime)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
         public double ApplyDiscount(double monthlyBookingFee, double monthlyRoadSideFee)
         {
             double discount = 0.10; // 10% discount
