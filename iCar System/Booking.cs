@@ -75,7 +75,7 @@ namespace iCar_System
                 $"Booking start: {StartDateAndTime.ToString("dd/MM/yy hh:mm tt")}" +
                 $"\nBooking end: {EndDateAndTime.ToString("dd/MM/yy hh:mm tt")}" +
                 $"\nPick up details: {PickUpDetails}\nDrop off details: {DropOffDetails}" +
-                $"\nBooking fee: {BookingFee}" +
+                $"\nBooking fee: {BookingFee.ToString("F2")}" +
                 $"\nCar: {CarInBooking.Model}";
     }   }
 }
