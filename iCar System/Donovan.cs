@@ -17,28 +17,7 @@ namespace iCar_System
         //Controllers
         private static void SelectReturnLocation(int option, Booking booking)
         {
-<<<<<<< HEAD
             if (option == 1)
-=======
-            Console.WriteLine("Testing donovan");
-            DateTime currentTime = DateTime.Now;
-            //test data
-            iCarStation station1 = new iCarStation(1, 600123);
-            iCarStation station2 = new iCarStation(2, 600234);
-            DateTime startTime = new DateTime(2024, 1, 1, 9, 0, 0);
-            DateTime endTime = new DateTime(2024, 1, 1, 11, 0, 0);
-            //Booking testbooking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 8, 4, 21, 0, 0), "600123", "600123", 20.00);
-            Booking booking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0), new Tuple<string, string>("Deliver", "239085"), 10);
-            var addFees = 0.50;
-            var bookingCost = 20; //assuming a 2hr session costs a standard of $20
-            var totalCost = bookingCost + addFees;
-            var LateFeePerMinute = 0.10;
-            double returnBuffer = 15;
-            TimeSpan lateDuration = currentTime - booking1.EndDateAndTime;
-            double minutesDiff = lateDuration.TotalMinutes;
-
-            void displayReturnLocations()
->>>>>>> c8779b8d312a7517962ca8b42aae36e2649cd781
             {
                 ReturnToiCarStation(booking);
             }
@@ -86,8 +65,6 @@ namespace iCar_System
                 Console.WriteLine("Error: Car not found for this booking.");
                 return;
             }
-            //Booking booking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 8, 6, 0, 13, 0), new Tuple<string, string>("Deliver", "239085"), 20, 10);
-            //Car car1 = new Car(1, "Honda Civic", 2021, 10000, new List<string>() { }, "Honda", 10);
             booking.setCar(car);
             //Car car = booking.getCarInBooking();
             //booking.DropOffDetails = new Tuple<string, string>();
@@ -207,7 +184,7 @@ namespace iCar_System
             iCarStation station1 = new iCarStation(1, "600123");
             iCarStation station2 = new iCarStation(2, "600234");
             Car car = new Car(1, "Honda Civic", 2021, 10000, new List<string>() { }, "Honda", 10);
-            Booking booking1 = new Booking(1, new DateTime(2024, 8, 5, 9, 0, 0), new DateTime(2024, 8, 6, 9, 0, 0), new Tuple<string, string>("Deliver", "239085"), 20, 10);
+            Booking booking1 = new Booking(1, new DateTime(2024, 8, 5, 9, 0, 0), new DateTime(2024, 8, 6, 9, 0, 0), new Tuple<string, string>("Deliver", "239085"), 10);
             bookings.Add(booking1);
             carlist.Add(car);
             ReturnCar(booking1.BookingId, car.CarID);
