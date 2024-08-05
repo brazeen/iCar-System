@@ -37,16 +37,24 @@ namespace iCar_System
             testrenter.Bookings.Add(testBooking2);
 
             //control methods------------------------------------------------------------------------------------------------------
-            bool validateReview(int rating, string description)
+            bool validateReview(string rating, string description)
             {
-                if ((rating < 1 || rating > 5) || (description.Length > 200))
+                try
+                {
+                    if ((Convert.ToInt32(rating) < 1 || Convert.ToInt32(rating) > 5) || (description.Length > 200))
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                }
+                catch (Exception)
                 {
                     return false;
                 }
-                else
-                {
-                    return true;
-                }
+                
             }
 
             bool hasReviewed(Renter renter, Car car)
@@ -70,22 +78,32 @@ namespace iCar_System
             {
                 while (true)
                 {
+                    //all this validation logic will not be in the actual iCar system as that would be done through a GUI
                     Console.Write("Select a booking ID to view: ");
-                    int inputbookingid = Convert.ToInt32(Console.ReadLine());
-                    foreach (Booking booking in bookingHistory)
+                    int? inputbookingid;
+                    try
                     {
-                        if (booking.BookingId == inputbookingid)
+                        inputbookingid = Convert.ToInt32(Console.ReadLine());
+                        foreach (Booking booking in bookingHistory)
                         {
-                            Car car = booking.getCarInBooking();
-                            return car;
+                            if (booking.BookingId == inputbookingid)
+                            {
+                                Car car = booking.getCarInBooking();
+                                return car;
+                            }
                         }
                     }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Please enter a valid booking ID.");
+                    }
                     Console.WriteLine("Booking not found. Please re-input the booking ID.");
+
                 }
 
             }
             //UI methods-------------------------------------------------------------------------------------------------------------
-
+            //for UI methods, I only included the self message methods, as the rest of the methods (coming from the Renter actor to the UI) would be handled by the control layer
             //to simulate finding a logged in renter, return the test renter object 
             Renter findLoggedInRenter()
             {
@@ -122,11 +140,14 @@ namespace iCar_System
 
             void displayConfirmationPopup(Review r)
             {
-                string reviewDetails = "Review Details:\n" +
+                string reviewDetails = "\nReview Details:\n" +
                                                 $"Rating: {r.Rating}\n" +
                                                 $"Description: {r.Description}\n" +
                                                 "Review created successfully.\n";
+                Console.WriteLine(reviewDetails);
             }
+
+
             //use case start-----------------------------------------------------------------------------------------------------------
             Renter loggedInRenter = findLoggedInRenter();
             List<Booking> bookingHistory = getRenterBookingHistory(loggedInRenter);
@@ -146,7 +167,24 @@ namespace iCar_System
                 Console.WriteLine("1: Make Review, 2: Exit");
                 //option and option validation will not be in actual iCar system as it will be a GUI based system)
                 Console.Write("Enter option: ");
-                int option = Convert.ToInt32(Console.ReadLine());
+                int? option;
+                while (true)
+                {
+                    try
+                    {
+                        option = Convert.ToInt32(Console.ReadLine());
+                        if (option.HasValue)
+                        {
+                            break;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Please enter a valid option.");
+                    }
+                    
+                }
+                
                 //variable to track if option is in range (actual use case will be in a GUI so will not have that logic)
                 bool inrangeoption = false;
                 while (inrangeoption == false)
@@ -178,20 +216,25 @@ namespace iCar_System
             }
 
             bool valid = false;
-            int rating = 0;
+            string strrating = "";
             string description = "";
+            int rating = 0;
             while (valid == false)
             {
                 //displayInputFields +inputReview method would work differently in a GUI as both fields can be displayed together without getting input first
                 Console.Write("Enter rating from 1 to 5: ");
-                rating = Convert.ToInt32(Console.ReadLine());
+                strrating = Console.ReadLine();
                 Console.Write("Enter description (max 200 characters): ");
                 description = Console.ReadLine();
-                valid = validateReview(rating, description);
+                valid = validateReview(strrating, description);
                 if (valid == false)
                 {
                     //display error message
                     Console.WriteLine("Invalid rating and description. Please re-enter.");
+                }
+                else
+                {
+                    rating = Convert.ToInt32(strrating);
                 }
             }
 
