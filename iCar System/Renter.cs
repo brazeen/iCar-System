@@ -27,9 +27,9 @@ namespace iCar_System
 
         public Renter() { }
 
-        public Renter(int uid, string n, string cn, DateTime dob, string ea, string ha) : base(uid, n, cn, dob, ea, ha) 
+        public Renter(bool ip,int uid, string n, string cn, DateTime dob, string ea, string ha) : base(uid, n, cn, dob, ea, ha) 
         {
-            IsPrime = false; // by default false since you must spend money to become a prime renter
+            IsPrime = ip; // by default false since you must spend money to become a prime renter
             Bookings = new List<Booking>();
             Reviews = new List<Review>();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,18 +53,21 @@ namespace iCar_System
         {
             if (cardNumber.Length != 16)
             {
+                Console.WriteLine("Invalid card number");
                 return false;
             }
 
 
             if (expiryDate < DateTime.Now)
             {
+                Console.WriteLine("Card expired");
                 return false;
             }
 
 
             if (cvc < 100 || cvc > 999)
             {
+                Console.WriteLine("Invalid cvc");
                 return false;
             }
 
