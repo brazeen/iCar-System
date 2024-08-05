@@ -89,7 +89,7 @@ namespace iCar_System
             return Reservations;
         }
 
-        public void getAvailabilitySchedule()
+        public List<Dictionary<string,DateTime>> getAvailabilitySchedule()
         { 
             return Schedule;
         }
