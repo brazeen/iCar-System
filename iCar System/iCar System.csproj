@@ -6,7 +6,11 @@
     <RootNamespace>iCar_System</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>iCar_System.JungSek</StartupObject>
+    <StartupObject>iCar_System.Brydon</StartupObject>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Brandon.cs" />
+  </ItemGroup>
 
 </Project>

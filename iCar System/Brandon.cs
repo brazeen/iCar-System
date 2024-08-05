@@ -37,8 +37,8 @@ namespace iCar_System
 
             //test data
             Renter loggedInRenter = new Renter(1, "Brandon Koh", "99345673", new DateTime(1985, 11, 23), "brandon@gmail.com", "2 Clementi Road");
-            Booking testBooking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0), "123 Main St", "456 Elm St", 299.99);
-            Booking testBooking2 = new Booking(2, new DateTime(2024, 4, 1, 10, 0, 0), new DateTime(2024, 5, 5, 15, 0, 0), "789 Pine St", "123 Main St", 199.99);
+            Booking testBooking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0), "123 Main St", "456 Elm St", 199.99, 100);
+            Booking testBooking2 = new Booking(2, new DateTime(2024, 4, 1, 10, 0, 0), new DateTime(2024, 5, 5, 15, 0, 0), "789 Pine St", "123 Main St", 100.99, 99);
             List<DateTime> schedule1 = new List<DateTime>
             {
                 new DateTime(2024, 8, 10, 9, 0, 0),
@@ -81,12 +81,12 @@ namespace iCar_System
             string bookingDetails;
             foreach (Booking booking in bookingHistory)
             {
-                bookingDetails = $"Booking ID: {booking.BookingID}\n" +
+                bookingDetails = $"Booking ID: {booking.BookingId}\n" +
                                                 $"Start Date and Time: {booking.StartDateAndTime}\n" +
                                                 $"End Date and Time: {booking.EndDateAndTime}\n" +
                                                 $"Pickup Location: {booking.PickupLocation}\n" +
                                                 $"Return Location: {booking.ReturnLocation}\n" +
-                                                $"Total Cost: ${booking.TotalCost}\n\n";
+                                                $"Total Cost: ${booking.BookingFee+booking.RoadSideFee}\n\n";
 
                 Console.WriteLine(bookingDetails);
             }
