@@ -18,7 +18,7 @@ namespace iCar_System
             DateTime startTime = new DateTime(2024, 1, 1, 9, 0, 0);
             DateTime endTime = new DateTime(2024, 1, 1, 11, 0, 0);
             //Booking testbooking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 8, 4, 21, 0, 0), "600123", "600123", 20.00);
-            Booking booking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0), new Tuple<string, string>("Deliver", "239085"), new Tuple<string, string>("Deliver", "345676"), 20, 10);
+            Booking booking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0), new Tuple<string, string>("Deliver", "239085"), 20, 10);
             var addFees = 0.50;
             var bookingCost = 20; //assuming a 2hr session costs a standard of $20
             var totalCost = bookingCost + addFees;
