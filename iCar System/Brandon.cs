@@ -81,7 +81,7 @@ namespace iCar_System
             string bookingDetails;
             foreach (Booking booking in bookingHistory)
             {
-                bookingDetails = $"Booking ID: {booking.BookingID}\n" +
+                bookingDetails = $"Booking ID: {booking.BookingId}\n" +
                                                 $"Start Date and Time: {booking.StartDateAndTime}\n" +
                                                 $"End Date and Time: {booking.EndDateAndTime}\n" +
                                                 $"Pickup Location: {booking.PickupLocation}\n" +
