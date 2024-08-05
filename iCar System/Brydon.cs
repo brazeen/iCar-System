@@ -174,7 +174,6 @@ namespace iCar_System
             //check if the car's timing overlaps with availability schedule or bookings
             private static bool isCarAvailable(DateTime startTimeAndDate, DateTime endTimeAndDate, List<Booking> otherReservations, List<Dictionary<string, DateTime>> availabilitySchedule)
             {
-                Console.WriteLine(otherReservations);
                 //validate other reservations
                 foreach (Booking booking in otherReservations)
                 {
@@ -222,9 +221,9 @@ namespace iCar_System
                 DateTime endDateAndTime = toDateTime(endDate, endTime);
                 //verify the data
                 bool validEnd = validateEndTime(startDateAndTime, endDateAndTime);
-                if (!validEnd) return "The end time must be ahead of the start time";
+                if (!validEnd) return "The end time must be ahead of the start time. Please try again.";
                 bool isAvailable = isCarAvailable(startDateAndTime, endDateAndTime, otherReservations, availabilitySchedule);
-                if (!isAvailable) return "The car is not available at this time";
+                if (!isAvailable) return "The car is not available at this time. Please try again.";
                 //success, update booking
                 string[] splitArray = pickUpDetails.Split(' ');
                 Tuple<string, string> pickUpDetailsFormatted = new Tuple<string, string>(splitArray[0], splitArray[1]);
