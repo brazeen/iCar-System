@@ -53,22 +53,30 @@ namespace iCar_System
         {
             if (cardNumber.Length != 16)
             {
+                Console.WriteLine("Invalid card number");
                 return false;
             }
 
 
             if (expiryDate < DateTime.Now)
             {
+                Console.WriteLine("Card expired");
                 return false;
             }
 
 
             if (cvc < 100 || cvc > 999)
             {
+                Console.WriteLine("Invalid cvc");
                 return false;
             }
 
             return true;
+        }
+
+        public void UpdateAmount(double newAmount)
+        {
+            paymentAmount = newAmount;
         }
     }
 }
