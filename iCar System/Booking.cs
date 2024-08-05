@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,9 @@ namespace iCar_System
 {
     class Booking
     {
-        private int bookingID;
+        private int bookingId;
 
-        public int BookingID { get { return bookingID; } set { bookingID = value; } }
+        public int BookingId { get { return bookingId; } set { bookingId = value; } }
 
         private DateTime startDateAndTime;
 
@@ -20,13 +21,13 @@ namespace iCar_System
 
         public DateTime EndDateAndTime { get { return endDateAndTime; } set { endDateAndTime = value; } }
 
-        private string pickupLocation;
+        private Tuple<string, string> pickUpDetails;
 
-        public string PickupLocation { get { return pickupLocation; } set { pickupLocation = value; } }
+        public Tuple<string, string> PickUpDetails { get { return pickUpDetails; } set { pickUpDetails = value; } }
 
-        private string returnLocation;
+        private Tuple<string, string> dropOffDetails;
 
-        public string ReturnLocation { get { return returnLocation; } set { returnLocation = value; } }
+        public Tuple<string, string> DropOffDetails { get { return dropOffDetails; } set { dropOffDetails = value; } }
 
         private double bookingFee;
 
@@ -46,13 +47,13 @@ namespace iCar_System
 
         public Booking() { }
 
-        public Booking(int bid, DateTime sd, DateTime ed, string pl, string rl, double bf, double rf)
+        public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, Tuple<string, string> rl, double bf, double rf)
         {
-            bookingID = bid;    
+            bookingId = bid;    
             StartDateAndTime = sd;
             EndDateAndTime = ed;
-            PickupLocation = pl;
-            ReturnLocation = rl;
+            PickUpDetails = pl;
+            DropOffDetails = rl;
             BookingFee = bf;
             RoadSideFee = rf;
         }
@@ -62,5 +63,14 @@ namespace iCar_System
         public void setCar(Car car) { CarInBooking = car; }
 
         public void setRenter(Renter renter) { RenterInBooking = renter; }
-    }
+
+        public Tuple<DateTime, DateTime> getBookingPeriod() { return new Tuple<DateTime, DateTime>(startDateAndTime, endDateAndTime); }
+        public override string ToString(){
+            return $"" +
+                $"Booking start: {StartDateAndTime.ToString("dd/MM/yy hh:mm tt")}" +
+                $"\nBooking end: {EndDateAndTime.ToString("dd/MM/yy hh:mm tt")}" +
+                $"\nPick up details: {PickUpDetails}\nDrop off details: {DropOffDetails}" +
+                $"\nBooking fee: {BookingFee}" +
+                $"\nCar: {CarInBooking.Model}";
+    }   }
 }
