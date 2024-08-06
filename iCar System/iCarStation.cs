@@ -16,12 +16,17 @@ namespace iCar_System
 
         public string PostalCode { get { return postalCode; } set { postalCode = value; } }
 
+        private List<Booking> bookingList;
+
+        public List<Booking> BookingList { get { return bookingList; } set { bookingList = value; } }
+
         public iCarStation() { }
 
         public iCarStation(int sID, string pc)
         {
             stationID = sID;
             postalCode = pc;
+            BookingList = new List<Booking>();
         }
     }
 }
