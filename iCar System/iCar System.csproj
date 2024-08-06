@@ -6,7 +6,7 @@
     <RootNamespace>iCar_System</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <StartupObject>iCar_System.Yangyi</StartupObject>
+    <StartupObject>iCar_System.Donovan</StartupObject>
   </PropertyGroup>
 
 </Project>

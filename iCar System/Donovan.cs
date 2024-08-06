@@ -51,7 +51,7 @@ namespace iCar_System
         }
 
         //UI
-        private static void ReturnCar(int bookingid, int carid)
+        private static void ReturnCar(int bookingid)
         {
             Booking booking = bookings.FirstOrDefault(b => b.BookingId == bookingid); //check for bookingID
             if (booking == null)
@@ -59,15 +59,7 @@ namespace iCar_System
                 Console.WriteLine("Invalid booking ID.");
                 return;
             }
-            Car car = carlist.FirstOrDefault(c => c.CarID == carid);
-            if (car == null) //check if car is found
-            {
-                Console.WriteLine("Error: Car not found for this booking.");
-                return;
-            }
-            booking.setCar(car);
-            //Car car = booking.getCarInBooking();
-            //booking.DropOffDetails = new Tuple<string, string>();
+            Car car = booking.getCarInBooking();
             displayReturnLocations(booking);
         }
 
@@ -94,7 +86,7 @@ namespace iCar_System
             int stationSelect = Convert.ToInt32(Console.ReadLine());
             iCarStation selectedStation = GetSelectedStation(stationSelect); // Retrieve station details
 
-            // Start 15-minute timer
+            // Time check for late return
 
             Console.WriteLine("You have 15 minutes to return your car to the chosen location. Enter 'D' when returned.");
             string confirmation = Console.ReadLine();
@@ -143,7 +135,7 @@ namespace iCar_System
                 Console.WriteLine($"Checking Location {pc}...");
                 Thread.Sleep(2000); //simulate checking process
                 Console.WriteLine("Location Verified!");
-                // Start 15-minute timer
+                // Time check for late return
 
                 Console.WriteLine("You have 15 minutes to return your car to the chosen location. Enter 'D' when returned.");
                 string confirmation = Console.ReadLine();
@@ -184,10 +176,14 @@ namespace iCar_System
             iCarStation station1 = new iCarStation(1, "600123");
             iCarStation station2 = new iCarStation(2, "600234");
             Car car = new Car(1, "Honda Civic", 2021, 10000, new List<string>() { }, "Honda", 10);
+            //change EndDateandTime to 15 minutes before current time for testing of late return
+            //e.g Current Time is 9.15am. Set EndDateandTime to 9am. No late fee should be given.
+            //If current time is 9.16am, EndDateandTime is 9am. 15Minutes buffer time to return car is over, and late fee is applied accordingly.
             Booking booking1 = new Booking(1, new DateTime(2024, 8, 5, 9, 0, 0), new DateTime(2024, 8, 6, 9, 0, 0), new Tuple<string, string>("Deliver", "239085"), 10);
+            booking1.setCar(car);
             bookings.Add(booking1);
             carlist.Add(car);
-            ReturnCar(booking1.BookingId, car.CarID);
+            ReturnCar(booking1.BookingId);
         }
     }
 }
