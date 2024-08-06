@@ -12,13 +12,13 @@ namespace iCar_System
 
         public int StationID { get { return stationID; } set { stationID = value; } }
 
-        private int postalCode;
+        private string postalCode;
 
-        public int PostalCode { get { return postalCode; } set { postalCode = value; } }
+        public string PostalCode { get { return postalCode; } set { postalCode = value; } }
 
         public iCarStation() { }
 
-        public iCarStation(int sID, int pc)
+        public iCarStation(int sID, string pc)
         {
             stationID = sID;
             postalCode = pc;
