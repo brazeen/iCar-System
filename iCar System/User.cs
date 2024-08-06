@@ -28,9 +28,9 @@ namespace iCar_System
 
         public string EmailAddress { get { return emailAddress; } set { emailAddress = value; } }
 
-        private string homeAddress;
+        private string homePostalCode;
 
-        public string HomeAddress { get { return homeAddress; } set { homeAddress = value; } }
+        public string HomePostalCode { get { return homePostalCode; } set { homePostalCode = value; } }
 
         private Admin authenticatedAdmin;
 
@@ -46,7 +46,7 @@ namespace iCar_System
             ContactNumber = cn;
             DateOfBirth = dob;
             EmailAddress = ea;
-            HomeAddress = ha;
+            HomePostalCode = ha;
         }
 
         public void setAdmin(Admin admin) { AuthenticatedAdmin = admin; }
