@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.ConstrainedExecution;
 
 namespace iCar_System
 {
     class JungSek
     {
+        private static int nextBookingId = 1; // Static variable to keep track of the next booking ID
+
         // Utility methods
         static bool ValidateBooking(DateTime startDateAndTime, DateTime endDateAndTime)
         {
@@ -152,6 +153,14 @@ namespace iCar_System
             Car car1 = new Car(1, "Toyota Camry", 2022, 5000, photos1, "Toyota", 29.99);
             Car car2 = new Car(2, "Honda Civic", 2021, 10000, photos2, "Honda", 24.99);
             Car car3 = new Car(3, "85 SX", 2007, 80, new List<string>() { }, "KTM", 4.5);
+            car1.addUnavailabilityPeriod(
+                new DateTime(2024, 11, 1, 0, 0, 0),
+                new DateTime(2024, 11, 30, 23, 59, 59)
+            );
+            car2.addUnavailabilityPeriod(
+                new DateTime(2024, 11, 1, 0, 0, 0),
+                new DateTime(2024, 11, 30, 23, 59, 59)
+            );
             car3.addUnavailabilityPeriod(
                 new DateTime(2024, 11, 1, 0, 0, 0),
                 new DateTime(2024, 11, 30, 23, 59, 59)
@@ -171,15 +180,6 @@ namespace iCar_System
         static void BookCar(Renter renter, List<Car> cars)
         {
             Console.WriteLine("==== Book Car Page ====");
-            var Schedule = new List<Dictionary<string, DateTime>>();
-            Schedule = cars[2].Schedule;
-            foreach (var sched in Schedule)
-            {
-                foreach (var item in sched)
-                {
-                    Console.WriteLine($"{item}");
-                }
-            }
             var bookingPeriod = PromptForBookingPeriod();
             DateTime startDate = bookingPeriod.Item1;
             DateTime endDate = bookingPeriod.Item2;
@@ -194,43 +194,41 @@ namespace iCar_System
                 {
                     Console.WriteLine($"Car ID: {car.CarID}, Model: {car.Model}, Brand: {car.Make}");
                 }
+
+                int selectedCarId = PromptForCarId(availableCars);
+                var selectedCar = availableCars.First(c => c.CarID == selectedCarId);
+
+                string pickupMethod = PromptForPickupMethod();
+                string pickupLocation = PromptForPostalCode("Enter pick-up location (6-digit postal code): ");
+
+                string confirmation = PromptForConfirmation();
+                if (confirmation == "no")
+                {
+                    Console.WriteLine("Booking not confirmed.");
+                    Console.WriteLine("Car Not Booked");
+                    return;
+                }
+
+                Booking newBooking = new Booking(nextBookingId++, startDate, endDate, new Tuple<string, string>(pickupMethod, pickupLocation), 0);
+                newBooking.setCar(selectedCar);
+                newBooking.setRenter(renter);
+
+                renter.Bookings.Add(newBooking);
+                selectedCar.addBooking(newBooking);
+
+                Console.WriteLine("Booking confirmed. Booking details:");
+                Console.WriteLine($"Booking ID: {newBooking.BookingId}");
+                Console.WriteLine($"Car ID: {selectedCar.CarID}, Model: {selectedCar.Model}, Brand: {selectedCar.Make}");
+                Console.WriteLine($"Start Date and Time: {newBooking.StartDateAndTime}");
+                Console.WriteLine($"End Date and Time: {newBooking.EndDateAndTime}");
+                Console.WriteLine($"Pickup Method: {newBooking.PickUpDetails.Item1}");
+                Console.WriteLine($"Pickup Location: {newBooking.PickUpDetails.Item2}");
+                Console.WriteLine("Car Booked Successfully");
             }
             else
             {
                 Console.WriteLine("No available cars for the selected period.");
-                return;
             }
-
-            int selectedCarId = PromptForCarId(availableCars);
-            var selectedCar = availableCars.First(c => c.CarID == selectedCarId);
-
-            string pickupMethod = PromptForPickupMethod();
-            string pickupLocation = PromptForPostalCode("Enter pick-up location (6-digit postal code): ");
-
-            string confirmation = PromptForConfirmation();
-            if (confirmation == "no")
-            {
-                Console.WriteLine("Booking not confirmed.");
-                Console.WriteLine("Car Not Booked");
-                return;
-            }
-
-            Booking newBooking = new Booking(3, startDate, endDate, new Tuple<string, string>(pickupMethod, pickupLocation), 0);
-            newBooking.setCar(selectedCar);
-            newBooking.setRenter(loggedInRenter);
-
-            renter.Bookings.Add(newBooking);
-            selectedCar.addBooking(newBooking);
-
-            Console.WriteLine("Booking confirmed. Booking details:");
-            Console.WriteLine($"Booking ID: {newBooking.BookingId}");
-            Console.WriteLine($"Car ID: {selectedCar.CarID}, Model: {selectedCar.Model}, Brand: {selectedCar.Make}");
-            Console.WriteLine($"Start Date and Time: {newBooking.StartDateAndTime}");
-            Console.WriteLine($"End Date and Time: {newBooking.EndDateAndTime}");
-            Console.WriteLine($"Pickup Method: {newBooking.PickUpDetails.Item1}");
-            Console.WriteLine($"Pickup Location: {newBooking.PickUpDetails.Item2}");
-            Console.WriteLine($"Booking Fee: ${newBooking.BookingFee}");
-            Console.WriteLine("Car Booked Successfully");
         }
 
         static void Main(string[] args)
