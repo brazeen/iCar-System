@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace iCar_System
 {
-    abstract class User
+    class User
     {
         private int userID;
 
