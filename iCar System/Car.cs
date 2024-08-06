@@ -49,6 +49,18 @@ namespace iCar_System
 
         public List<Booking> Reservations { get { return reservations; } set { reservations = value; } }
 
+        private Owner carOwner;
+
+        public Owner CarOwner { get { return carOwner; } set { carOwner = value; } }
+
+        private Insurance insurance;
+
+        public Insurance Insurance { get { return insurance; } set { insurance = value; } }
+
+        private List<MaintenanceRecord> maintenanceRecords;
+
+        public List<MaintenanceRecord> MaintenanceRecords { get { return maintenanceRecords; } set { maintenanceRecords = value; } }
+
         //constructor
         public Car() { }
 

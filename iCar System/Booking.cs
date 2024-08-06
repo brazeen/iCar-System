@@ -49,6 +49,14 @@ namespace iCar_System
 
         public Renter RenterInBooking { get { return renterInBooking; } set { renterInBooking = value; } }
 
+        private MonthlyPayment monthlyPayment;
+
+        public MonthlyPayment MonthlyPayment { get { return monthlyPayment; } set { monthlyPayment = value; } }
+
+        private List<iCarStation> iCarStations;
+
+        public List<iCarStation> ICarStations { get { return iCarStations; } set { iCarStations = value;s } }
+
         public Booking() { }
 
         public Booking(int bid, DateTime sd, DateTime ed, Tuple<string, string> pl, double rf)
