@@ -29,12 +29,19 @@ namespace iCar_System
                 "photo4.jpg"
             };
 
-            Car car1 = new Car(1, "Toyota Camry", 2022, 5000, photos1, "Toyota", 29.99);
-            Car car2 = new Car(2, "Honda Civic", 2021, 10000, photos2, "Honda", 24.99);
+            Car car1 = new Car(1, "Camry", 2022, 5000, photos1, "Toyota", 29.99);
+            Car car2 = new Car(2, "Civic Type R", 2021, 10000, photos2, "Honda", 24.99);
             testBooking1.setCar(car1);
             testBooking2.setCar(car2);
             testrenter.Bookings.Add(testBooking1);
             testrenter.Bookings.Add(testBooking2);
+
+            //the car in testbooking2 will have a previous review for simulation + testing purposes
+            Review testreview = new Review(1, 4, "nice car");
+            testreview.setRenter(testrenter);
+            testreview.setCar(car2);
+            testrenter.addReview(testreview);
+            car2.addReview(testreview);
 
             //control methods------------------------------------------------------------------------------------------------------
             bool validateReview(string rating, string description)
@@ -141,6 +148,7 @@ namespace iCar_System
             void displayConfirmationPopup(Review r)
             {
                 string reviewDetails = "\nReview Details:\n" +
+                                                $"Car: {r.BookedCar.Year + " " + r.BookedCar.Make + " " + r.BookedCar.Model}\n" +
                                                 $"Rating: {r.Rating}\n" +
                                                 $"Description: {r.Description}\n" +
                                                 "Review created successfully.\n";
@@ -163,20 +171,17 @@ namespace iCar_System
             while (pastReview == true)
             {
                 car = selectCarInBooking(bookingHistory);
-
+                displayCarDetails(car);
                 Console.WriteLine("1: Make Review, 2: Exit");
                 //option and option validation will not be in actual iCar system as it will be a GUI based system)
-                Console.Write("Enter option: ");
                 int? option;
                 while (true)
                 {
                     try
                     {
+                        Console.Write("Enter option: ");
                         option = Convert.ToInt32(Console.ReadLine());
-                        if (option.HasValue)
-                        {
-                            break;
-                        }
+                        break;
                     }
                     catch (Exception)
                     {
