@@ -8,9 +8,9 @@ namespace iCar_System
 {
     class Insurance
     {
-        private int insuranceNo; // should it be a string ah
+        private string insuranceNo; 
 
-        public int InsuranceNo { get { return insuranceNo; } set { insuranceNo = value; } }
+        public string InsuranceNo { get { return insuranceNo; } set { insuranceNo = value; } }
 
         private string company;
 
@@ -31,7 +31,7 @@ namespace iCar_System
         //constructor
         public Insurance() { }
 
-        public Insurance(int ino, string c, DateTime ed, string cvg)
+        public Insurance(string ino, string c, DateTime ed, string cvg)
         {
             InsuranceNo = ino;
             Company = c;
