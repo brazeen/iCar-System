@@ -12,9 +12,9 @@ namespace iCar_System
 
         public int RecordID { get { return recordID; } set { recordID = value; } }
 
-        private DateTime serviceDate;
+        private DateTime serviceDateAndTime;
 
-        public DateTime ServiceDate { get { return serviceDate; } set { serviceDate = value; } }
+        public DateTime ServiceDateAndTime { get { return serviceDateAndTime; } set { serviceDateAndTime = value; } }
 
         private string serviceType;
 
@@ -38,7 +38,7 @@ namespace iCar_System
         public MaintenanceRecord(int rid, int cid, DateTime sd, string st, string sp, double c)
         {
             RecordID = rid;
-            ServiceDate = sd;
+            ServiceDateAndTime = sd;
             ServiceType = st;
             ServiceProvider = sp;
             Cost = c;
