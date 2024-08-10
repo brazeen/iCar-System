@@ -14,8 +14,8 @@ namespace iCar_System
 
             //test data------------------------------------------------------------------------------------------------------------
             Renter testrenter = new Renter(1, "Brandon Koh", "99345673", new DateTime(1985, 11, 23), "brandon@gmail.com", "2 Clementi Road");
-            Booking testBooking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 2, 2, 17, 0, 0), new Tuple<string, string>("Deliver", "239085"), 100);
-            Booking testBooking2 = new Booking(2, new DateTime(2024, 4, 1, 10, 0, 0), new DateTime(2024, 5, 5, 15, 0, 0), new Tuple<string, string>("Deliver", "665432"), 99);
+            Booking testBooking1 = new Booking(1, new DateTime(2024, 1, 1, 9, 0, 0), new DateTime(2024, 1, 1, 17, 0, 0), new Tuple<string, string>("Deliver", "239085"), 10);
+            Booking testBooking2 = new Booking(2, new DateTime(2024, 4, 4, 10, 0, 0), new DateTime(2024, 4, 5, 15, 0, 0), new Tuple<string, string>("Deliver", "665432"), 15);
 
             List<string> photos1 = new List<string>
             {
@@ -124,7 +124,7 @@ namespace iCar_System
                                                 $"End Date and Time: {booking.EndDateAndTime}\n" +
                                                 $"Pickup Location: {booking.PickUpDetails}\n" +
                                                 $"Return Location: {booking.DropOffDetails}\n" +
-                                                $"Total Cost: ${booking.BookingFee + booking.RoadSideFee}\n\n";
+                                                $"Total Cost: ${(booking.BookingFee + booking.RoadSideFee).ToString("F2")}\n\n";
 
                 Console.WriteLine(bookingDetails);
             }
