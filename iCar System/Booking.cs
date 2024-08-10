@@ -41,10 +41,6 @@ namespace iCar_System
 
         public Car CarInBooking { get {  return carInBooking; } set {  carInBooking = value; } }
 
-        private double carRate;
-
-        public double CarRate { get { return carRate; } set { carRate = value; } }
-
         private Renter renterInBooking;
 
         public Renter RenterInBooking { get { return renterInBooking; } set { renterInBooking = value; } }
@@ -73,7 +69,6 @@ namespace iCar_System
         public void setCar(Car car) 
         { 
             CarInBooking = car;
-            CarRate = car.Rate;
             bookingFee = calculateBookingFee();
         }
 
@@ -81,7 +76,7 @@ namespace iCar_System
 
         //calculate the total booking fee
         private double calculateBookingFee() {
-            return CarRate * (EndDateAndTime - StartDateAndTime).TotalHours;
+            return CarInBooking.Rate * (EndDateAndTime - StartDateAndTime).TotalHours;
         }
         public void updateBooking(DateTime newStartDateAndTime, DateTime newEndDateAndTime, Tuple<string, string> newPickUpDetails)
         { 
