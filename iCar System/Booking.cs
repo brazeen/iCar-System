@@ -55,7 +55,7 @@ namespace iCar_System
 
         private List<iCarStation> iCarStations;
 
-        public List<iCarStation> ICarStations { get { return iCarStations; } set { iCarStations = value;s } }
+        public List<iCarStation> ICarStations { get { return iCarStations; } set { iCarStations = value; } }
 
         public Booking() { }
 
