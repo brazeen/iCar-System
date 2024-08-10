@@ -233,7 +233,7 @@ namespace iCar_System
 
         static void Main(string[] args)
         {
-            Renter loggedInRenter = new Renter(false, 1, "Jung Sek", "94473979", new DateTime(2006, 4, 17), "jung@gmail.com", "1 Serangoon Road");
+            Renter loggedInRenter = new Renter(1, "Jung Sek", "94473979", new DateTime(2006, 4, 17), "jung@gmail.com", "1 Serangoon Road");
             List<Car> cars = CreateTestData();
 
             while (true)
