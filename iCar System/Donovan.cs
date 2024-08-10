@@ -117,12 +117,12 @@ namespace iCar_System
             double minutesDiff = lateDuration.TotalMinutes;
             var totalCost = booking.BookingFee + booking.RoadSideFee + AdditionalLocationFee;
 
-            Console.Write("Take note that returning to your desired location would cost additonal fees ($0.50).\n" +
+            Console.Write("Take note that returning from your desired location would cost additonal fees ($0.50).\n" +
                             "Continue? (Y/N)");
             string confirm = Console.ReadLine();
             if (confirm == "Y".ToLower())
             {
-                Console.Write("Enter the postal code for delivery pickup: ");
+                Console.Write("Enter the postal code where your vehicle will be for delivery pickup: ");
                 string pc = Console.ReadLine();
 
                 // Input Validation: Ensure a 6-digit postal code is entered
@@ -137,11 +137,11 @@ namespace iCar_System
                 Console.WriteLine("Location Verified!");
                 // Time check for late return
 
-                Console.WriteLine("You have 15 minutes to return your car to the chosen location. Enter 'D' when returned.");
+                Console.WriteLine("You have 15 minutes to return your car to the chosen location before delivery pickup service arrives. Enter 'D' when returned.");
                 string confirmation = Console.ReadLine();
                 if (confirmation == "D".ToLower())
                 {
-                    booking.DropOffDetails = new Tuple<string, string>("Delivery", pc);
+                    booking.DropOffDetails = new Tuple<string, string>("Deliver", pc);
                     if (DateTime.Now - booking.EndDateAndTime <= ReturnBuffer)
                     {
                         booking.BookingFee += AdditionalLocationFee;
@@ -159,14 +159,14 @@ namespace iCar_System
                     }
                 }
 
-
+                Console.WriteLine(booking);
 
             }
             else if (confirm == "N".ToLower())
             {
                 displayReturnLocations(booking);
             }
-            Console.WriteLine(booking);
+            
         }
 
         //use case begin
