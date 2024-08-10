@@ -111,12 +111,12 @@ namespace iCar_System
             }
             //UI methods-------------------------------------------------------------------------------------------------------------
             //for UI methods, I only included the self message methods, as the rest of the methods (coming from the Renter actor to the UI) would be handled by the control layer
-            //to simulate finding a logged in renter, return the test renter object 
             Renter findLoggedInRenter()
             {
+                //to simulate finding a logged in renter, return the test renter object 
                 return testrenter;
             }
-
+ 
             void displayBooking(Booking booking)
             {
                 string bookingDetails = $"Booking ID: {booking.BookingId}\n" +

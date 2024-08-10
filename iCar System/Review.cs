@@ -20,9 +20,9 @@ namespace iCar_System
 
         public string Description { get { return description; } set { description = value; } }
 
-        private DateTime date;
+        private DateTime reviewDateAndTime;
 
-        public DateTime Date { get { return date; } set { date = value; } }
+        public DateTime ReviewDateAndTime { get { return reviewDateAndTime; } set { reviewDateAndTime = value; } }
 
         private Car bookedCar;
 
@@ -39,7 +39,7 @@ namespace iCar_System
             reviewID = rid;
             rating = r;
             description = d;
-            Date = DateTime.Now;
+            ReviewDateAndTime = DateTime.Now;
         }
 
         public void setCar(Car car) { BookedCar = car; }
