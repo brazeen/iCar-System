@@ -9,8 +9,4 @@
     <StartupObject>iCar_System.Donovan</StartupObject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Yangyi.cs" />
-  </ItemGroup>
-
 </Project>
